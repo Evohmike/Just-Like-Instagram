@@ -6,7 +6,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon"  href="https://localglimpse.com/wp-content/uploads/2017/03/Instagram.png"/>
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
   {%if title%}
 
@@ -16,13 +18,15 @@
 
   {% block styles %}
     {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
   {% endblock %}
 
 </head>
 
 <body>
-
-  {% block content %}  {%endblock%}
+  {% block content %}
+  {%endblock%}
 
 
   {% block scripts %}
