@@ -58,3 +58,11 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
+
+def profile(request):
+    images = request.user.profile.posts.all()
+    user_object = request.user
+    user_images = user_object.profile.posts.all()
+    return render(request, 'profile.html', locals())
+
+
