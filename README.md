@@ -1,4 +1,4 @@
-# [Instagram](.herokuapp.com)
+# [Instagram](https://instamike.herokuapp.com/)
 #### Web clone of the Instagram app
 #### October 6th, 2018
 #### By **[Evoh Mike](https://github.com/Evohmike/Just-Like-Instagram)**
@@ -9,7 +9,7 @@ The site supports uploading images, and following other users.
 users can view photos uploaded by other users in the home page of app.
 
 ## Specifications
-Find the specs [here](https://github.com/DevWaweru/Instagram/blob/master/SPECS.md)
+Find the specs [here]()
 
 ## Set Up and Installations
 
