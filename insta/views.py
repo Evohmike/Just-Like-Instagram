@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
+from .forms import SignupForm,CommentForm, ImageForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from .models import *
+from .models import Profile, Post
 
 # Create your views here.
 def index(request):
@@ -64,5 +64,49 @@ def profile(request):
     user_object = request.user
     user_images = user_object.profile.posts.all()
     return render(request, 'profile.html', locals())
+
+
+
+def add_comment(request,post_id):
+   post = get_object_or_404(Post, pk=post_id)
+   if request.method == 'POST':
+       form = CommentForm(request.POST)
+       if form.is_valid():
+           comment = form.save(commit=False)
+           comment.user = request.user
+           comment.post = post
+           comment.save()
+   return redirect('index')
+
+
+# def search_results(request):
+#     if 'username' in request.GET and request.GET["username"]:
+#         search_term = request.GET.get("username")
+#         searched_users = Profile.objects.filter(username__icontains = search_term)
+#         message = f"{search_term}"
+#         profiles=  Profile.objects.all( )
+        
+#         return render(request, 'all-posts/search.html',{"message":message,"users": searched_users,'profiles':profiles})
+
+#     else:
+#         message = "You haven't searched for any term"
+#         return render(request, 'all-posts/search.html',{"message":message})
+
+
+def new_image(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = profile
+            # image.profile = profile
+            image.save()
+        return redirect('index')
+
+    else:
+        form = ImageForm()
+    return render(request, 'image.html', {"form": form})
 
 
