@@ -9,7 +9,7 @@
             <div class="row top-section">
                 <div class="col-md-5 profile-image">
                     {% if profile_details.prof_picture %}
-                    <img src="{{profile_details.prof_pic.cdn_url}}" alt="profile-photo">
+                    <img src="{{user.profile.profile_picture.url}}" alt="profile-photo">
                     {% else %}
                     <img src="/static/photos/avatapic.png" alt="avatar">
                     {% endif %}
@@ -54,8 +54,8 @@
     <hr>
     <div class="row user-images">
         {% for img in images %}
-        <div class="col-md-4 images">
-            <img src="{{img.photo.cdn_url}}" alt="Image">
+        <div class="col-md-8 images">
+            <img src="{{img.image.url}}" alt="Image">
         </div>
         {% empty %}
         <div class="col-md-12">
