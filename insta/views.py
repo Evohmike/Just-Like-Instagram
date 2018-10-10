@@ -6,12 +6,15 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .models import Profile, Post
 
+
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
     images=Post.objects.all()
     return render(request, 'index.html',{'images':images,})
@@ -40,7 +43,7 @@ def signup(request):
             return HttpResponse('Please confirm your email address to complete the registration')
     else:
         form = SignupForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'registration/registration_form', {'form': form})
 
 
 def activate(request, uidb64, token):
@@ -58,11 +61,11 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
-
+@login_required(login_url='/accounts/register/')
 def profile(request):
     images = request.user.profile.posts.all()
     user_object = request.user
-    user_images = user_object.profile.posts.all()
+    user_images = Post.get_user_img(user_object.id)
     return render(request, 'profile.html', locals())
 
 
