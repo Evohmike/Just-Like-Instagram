@@ -33,6 +33,10 @@ class Post(models.Model):
   image = models.ImageField(upload_to='posts/')
   user = models.ForeignKey(Profile, related_name='posts')
 
+  @classmethod
+  def get_user_img(cls, id):
+      return cls.objects.filter(user__id=id)
+
 
 class Comment(models.Model):
     user= models.ForeignKey(User)
