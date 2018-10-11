@@ -2,19 +2,18 @@
  {% load bootstrap4 %}
 
 {% block content%}
-{{ form.media }}
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <div class="row top-section">
-                <div class="col-md-5 profile-image">
+                <div class="col-xs-5 profile-image">
                     {% if profile_details.prof_picture %}
-                    <img src="{{user.profile.profile_picture.url}}" alt="profile-photo">
+                    <img src="{{profile_details.prof_picture}}" alt="profile-photo">
                     {% else %}
                     <img src="/static/photos/avatapic.png" alt="avatar">
                     {% endif %}
                 </div>
-                <div class="col-md-5 text-center">
+                <div class="col-xs-5 text-center">
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <span class="username">{{ profile.username }}</span> 
