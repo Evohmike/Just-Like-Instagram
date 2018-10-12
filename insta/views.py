@@ -14,7 +14,7 @@ from .models import Profile, Post
 
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/register/')
 def index(request):
     images=Post.objects.all()
     return render(request, 'index.html',{'images':images,})
@@ -60,6 +60,10 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.' '<a href="/accounts/login/"> click here </a>')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def find(request, name):
+    results = Profile.find_profile(name)
+    return render(request, 'searchresults.html', locals())
 
 @login_required(login_url='/accounts/register/')
 def profile(request):
